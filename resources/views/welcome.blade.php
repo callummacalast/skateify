@@ -22,12 +22,10 @@
         <div class="max-w-xl text-center sm:text-left">
             <h1 class="text-3xl font-extrabold sm:text-5xl">
                 Facny a skate?
-
                 <strong class="block font-extrabold text-rose-700">
                     Find skaters now!
                 </strong>
             </h1>
-
             <p class="mt-4 max-w-lg sm:text-xl sm:leading-relaxed">
                 This platform was built by skaters for skaters!
                 Find your next game of skate here!
