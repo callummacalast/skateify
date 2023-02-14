@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SkatersController;
+use App\Http\Controllers\SkaterController;
+use App\Http\Controllers\SkateSpotController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,8 +24,17 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::group(['controller' => SkaterController::class, 'middleware' => 'auth'], function (){
+    Route::get('/skaters', 'index')->name('skater.index');
+    Route::get('/skaters/search', 'skaterSearch')->name('skater.search');
+    Route::get('/skaters/{skater}', 'show')->name('skater.show');
+});
 
-Route::get('/skaters', [SkatersController::class, 'index'])->name('skaters.index');
+
+Route::group(['controller' => SkateSpotController::class, 'middleware' => 'auth'], function () {
+    Route::get('/spots', 'index')->name('spots.index');
+    Route::get('/spots/{skateSpot}', 'show')->name('spots.show');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -32,4 +42,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
