@@ -6,3 +6,12 @@
 body {
     font-family: 'Anton', sans-serif!important;
 }
+
+.primary-color-text {
+    color: #00539CFF;
+}
+
+.secondary-color-text{
+    color: #EEA47FFF;
+}
+
