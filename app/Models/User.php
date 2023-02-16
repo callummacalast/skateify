@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Skater::class);
     }
+
+    public function skate_spots()
+    {
+        return $this->hasMany(SkateSpot::class);
+    }
 }
