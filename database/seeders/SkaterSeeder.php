@@ -16,11 +16,13 @@ class SkaterSeeder extends Seeder
      */
     public function run()
     {
-        Skater::create([
-            'user_id' => User::all()->random()->id,
-            'stance' => fake()->randomElement(['Goofy', 'Regular']),
-            'skill_level' => fake()->randomElement(['Beginner', 'Advanced', 'Professional']),
-            'deck_size' => fake()->numberBetween(7, 9),
-        ]);
+        for ($i = 0; $i < 5; $i++) {
+            Skater::create([
+                'user_id' => User::all()->random()->id,
+                'stance' => fake()->randomElement(['Goofy', 'Regular']),
+                'skill_level' => fake()->randomElement(['Beginner', 'Advanced', 'Professional']),
+                'deck_size' => fake()->numberBetween(7, 9),
+            ]);
+        }
     }
 }
