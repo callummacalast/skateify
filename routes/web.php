@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SkaterController;
 use App\Http\Controllers\SkateSpotController;
@@ -20,8 +21,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+Route::get('/admin/dashboard', function () {
+    return view('admin.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::group(['controller' => SkaterController::class, 'middleware' => 'auth'], function (){
@@ -40,6 +41,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+
+
+Route::group(['controller' => AdminUserController::class, 'middleware' => 'role:admin', 'prefix' => 'admin', 'name' => 'admin' ], function () {
+    Route::get('/users', 'index')->name('users');
+    Route::get('/users/{user}/edit', 'edit')->name('users.edit');
 });
 
 require __DIR__ . '/auth.php';
