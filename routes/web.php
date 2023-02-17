@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminSkateSpotController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SkaterController;
@@ -45,9 +46,16 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::group(['controller' => AdminUserController::class, 'middleware' => 'role:admin', 'prefix' => 'admin', 'name' => 'admin' ], function () {
+Route::group(['controller' => AdminUserController::class, 'middleware' => 'role:admin', 'prefix' => '/admin', 'as' => 'admin.', 'name' => 'admin' ], function () {
     Route::get('/users', 'index')->name('users');
     Route::get('/users/{user}/edit', 'edit')->name('users.edit');
+    Route::get('/users/create', 'create')->name('users.create');
+});
+
+Route::group(['controller' => AdminSkateSpotController::class, 'middleware' => 'role:admin', 'prefix' => '/admin', 'as' => 'admin.', 'name' => 'admin' ], function () {
+    Route::get('/skate-spots', 'index')->name('skate-spots');
+    // Route::get('/users/{user}/edit', 'edit')->name('users.edit');
+    Route::get('/skate-spots/create', 'create')->name('skate-spots.create');
 });
 
 require __DIR__ . '/auth.php';
