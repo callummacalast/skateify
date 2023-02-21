@@ -110,5 +110,7 @@
             </li>
         </ul>
 
+        {{ $title }}
+
     </div>
 </header>

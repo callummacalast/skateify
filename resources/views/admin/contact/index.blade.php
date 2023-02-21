@@ -9,12 +9,12 @@
                         <div class="grid grid-cols-12 col-span-12 gap-6 xxl:col-span-9">
                             <div class="col-span-12 mt-8">
                                 <div class="flex items-center h-10 intro-y">
-                                    <h2 class="mr-5 text-lg font-medium truncate">Skate Spots</h2>
+                                    <h2 class="mr-5 text-lg font-medium truncate">Contact Messages</h2>
                                 </div>
                                 <div class="col-span-12 mt-5">
                                     <div class="grid gap-2 grid-cols-1 lg:grid-cols-1">
                                         <div class="bg-white p-4 shadow-lg rounded-lg">
-                                            <h1 class="font-bold text-base">Skate Spots</h1>
+                                            <h1 class="font-bold text-base">Contact Messages</h1>
                                             <div class="mt-4">
                                                 <div class="flex flex-col">
                                                     <div class="-my-2 overflow-x-auto">
@@ -27,13 +27,13 @@
                                                                             <th
                                                                                 class="px-6 py-3 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                                                                                 <div class="flex cursor-pointer">
-                                                                                    <span class="mr-2">Title</span>
+                                                                                    <span class="mr-2">Name</span>
                                                                                 </div>
                                                                             </th>
                                                                             <th
                                                                                 class="px-6 py-3 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                                                                                 <div class="flex cursor-pointer">
-                                                                                    <span class="mr-2">Description</span>
+                                                                                    <span class="mr-2">Message</span>
                                                                                 </div>
                                                                             </th>
                                                                             <th
@@ -51,18 +51,18 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody class="bg-white divide-y divide-gray-200">
-                                                                        @foreach ($skate_spots as $spot)
+                                                                        @foreach ($messages as $message)
                                                                             <tr>
                                                                                 <td
                                                                                     class="px-6 py-4 whitespace-no-wrap text-sm leading-5">
-                                                                                    <p>{{ $spot->title }}</p>
+                                                                                    <p>{{ $message->first_name }} {{$message->last_name}}</p>
                                                                                     <p class="text-xs text-gray-400">
-                                                                                        {{$spot->user->name}}
+                                                                                        {{$message->email}}
                                                                                     </p>
                                                                                 </td>
                                                                                 <td
                                                                                     class="px-6 py-4 whitespace-no-wrap text-sm leading-5">
-                                                                                    <p>{{ Str::limit($spot->description, 60, '...') }}</p>
+                                                                                    <p>{{ Str::limit($message->message,60, '...') }}</p>
                                                                                 </td>
                                                                                 <td
                                                                                     class="px-6 py-4 whitespace-no-wrap text-sm leading-5">
@@ -126,6 +126,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        {{$messages->links()}}
                                     </div>
                                 </div>
                             </div>

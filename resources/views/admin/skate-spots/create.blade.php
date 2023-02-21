@@ -4,6 +4,7 @@
         <div class="flex flex-col flex-1 w-full overflow-y-auto">
             <x-admin-dashboard.nav-header />
             <main class="">
+
                 <div class="grid mb-4 pb-10 px-8 mx-4 rounded-3xl bg-gray-100 border-4 border-green-400">
                     <div class="grid grid-cols-12 gap-6">
                         <div class="grid grid-cols-12 col-span-12 gap-6 xxl:col-span-9">
@@ -12,40 +13,57 @@
                                     <h2 class="mr-5 text-lg font-medium truncate">Create Skate Spot</h2>
                                 </div>
                                 <section class=" p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-5">
-                                    <h1 class="text-xl font-bold text-white capitalize dark:text-white">Skate Spot 
+                                    <h1 class="text-xl font-bold text-white capitalize dark:text-white">Skate Spot
                                     </h1>
-                                    <form>
+                                    <form action="{{ route('admin.skate-spots.store') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                         <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
                                             <div>
-                                                <label class="text-white dark:text-gray-200" for="username">Name</label>
-                                                <input id="username" type="text" value=""
+                                                <label class="text-white dark:text-gray-200"
+                                                    for="title">Title</label>
+                                                <input id="title" type="text" name="title" value=""
                                                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                                                @if ($errors->has('title'))
+                                                    <div class="error text-red-400 text-sm">
+                                                        {{ $errors->first('title') }}</div>
+                                                @endif
                                             </div>
 
                                             <div>
-                                                <label class="text-white dark:text-gray-200" for="emailAddress">Email
-                                                    Address</label>
-                                                <input id="emailAddress" type="email" value=""
+                                                <label class="text-white dark:text-gray-200" for="lat">Lat</label>
+                                                <input id="lat" type="text" value="" name="lat"
                                                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                                                @if ($errors->has('lat'))
+                                                    <div class="error text-red-400 text-sm">{{ $errors->first('lat') }}
+                                                    </div>
+                                                @endif
+                                            </div>
+
+                                            <div>
+                                                <label class="text-white dark:text-gray-200" for="lng">Lng</label>
+                                                <input id="lng" type="text" name="lng" value=""
+                                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                                                @if ($errors->has('lng'))
+                                                    <div class="error text-red-400 text-sm">{{ $errors->first('lng') }}
+                                                    </div>
+                                                @endif
                                             </div>
 
                                             <div>
                                                 <label class="text-white dark:text-gray-200"
-                                                    for="password">Password</label>
-                                                <input id="password" type="password" value=""
+                                                    for="description">Description</label>
+                                                <input id="description" type="text" name="description"
                                                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
-                                            </div>
-
-                                            <div>
-                                                <label class="text-white dark:text-gray-200"
-                                                    for="passwordConfirmation">Password Confirmation</label>
-                                                <input id="passwordConfirmation" type="password"
-                                                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                                                @if ($errors->has('description'))
+                                                    <div class="error text-red-400 text-sm">
+                                                        {{ $errors->first('descriptions') }}</div>
+                                                @endif
                                             </div>
                                             <div>
                                                 <label class="text-white dark:text-gray-200"
-                                                    for="passwordConfirmation">Color</label>
-                                                <input id="color" type="color"
+                                                    for="features">Color</label>
+                                                <input id="features" type="text" name="features"
                                                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
                                             </div>
                                             <div>
@@ -159,8 +177,8 @@
                                         </div>
 
                                         <div class="flex justify-end mt-6">
-                                            <button
-                                                class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">Save</button>
+                                            <button type="submit"
+                                                class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">Create</button>
                                         </div>
                                     </form>
                                 </section>
