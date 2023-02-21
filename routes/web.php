@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminContactMessageController;
 use App\Http\Controllers\Admin\AdminSkateSpotController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SkaterController;
 use App\Http\Controllers\SkateSpotController;
@@ -23,10 +25,14 @@ Route::get('/', function () {
 });
 
 Route::get('/admin/dashboard', function () {
-    return view('admin.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    return view('admin.dashboard.index');
+})->middleware(['auth', 'verified', 'role:admin'])->name('dashboard');
 
-Route::group(['controller' => SkaterController::class, 'middleware' => 'auth'], function (){
+Route::get('/dashboard', function() {
+    return view('dashboard');
+})->middleware(['role:skater']);
+
+Route::group(['controller' => SkaterController::class, 'middleware' => 'auth'], function () {
     Route::get('/skaters', 'index')->name('skater.index');
     Route::get('/skaters/search', 'skaterSearch')->name('skater.search');
     Route::get('/skaters/{skater}', 'show')->name('skater.show');
@@ -46,16 +52,23 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::group(['controller' => AdminUserController::class, 'middleware' => 'role:admin', 'prefix' => '/admin', 'as' => 'admin.', 'name' => 'admin' ], function () {
+
+Route::group(['controller' => AdminUserController::class, 'middleware' => 'role:admin', 'prefix' => '/admin', 'as' => 'admin.', 'name' => 'admin'], function () {
     Route::get('/users', 'index')->name('users');
     Route::get('/users/{user}/edit', 'edit')->name('users.edit');
     Route::get('/users/create', 'create')->name('users.create');
 });
 
-Route::group(['controller' => AdminSkateSpotController::class, 'middleware' => 'role:admin', 'prefix' => '/admin', 'as' => 'admin.', 'name' => 'admin' ], function () {
+Route::group(['controller' => AdminSkateSpotController::class, 'middleware' => 'role:admin', 'prefix' => '/admin', 'as' => 'admin.', 'name' => 'admin'], function () {
     Route::get('/skate-spots', 'index')->name('skate-spots');
-    // Route::get('/users/{user}/edit', 'edit')->name('users.edit');
     Route::get('/skate-spots/create', 'create')->name('skate-spots.create');
+    Route::post('/skate-spots/store', 'store')->name('skate-spots.store');
+});
+
+Route::group(['controller' => ContactMessageController::class, 'middleware' => 'role:admin', 'name' => 'contact'], function () {
+    Route::get('/contact', 'index')->name('contacts');
+    Route::post('/contact/store', 'store')->name('contact.send');
+    // Route::get('/skate-spots/create', 'create')->name('skate-spots.create');
 });
 
 require __DIR__ . '/auth.php';
