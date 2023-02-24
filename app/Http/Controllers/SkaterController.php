@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Skater;
+use App\Models\SkateSpot;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,10 @@ class SkaterController extends Controller
      */
     public function index()
     {
-        $skaters = User::with('skater')->get();
+        // $skaters = User::with('skater')->get();
+        // $skaters = User::find(1)->with('skater')->get();
+        $skaters = Skater::with('user')->get();
+        // dd($skaters);
 
         return view('skaters.index', compact('skaters'));
     }
@@ -49,7 +53,9 @@ class SkaterController extends Controller
      */
     public function show(Skater $skater)
     {
-        return view('skaters.show', compact('skater'));
+        $skate_spots = SkateSpot::where('user_id', $skater->user->id)->get();
+        
+        return view('skaters.show', compact('skater', 'skate_spots'));
     }
 
     /**
