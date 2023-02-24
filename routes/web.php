@@ -26,11 +26,11 @@ Route::get('/', function () {
 
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard.index');
-})->middleware(['auth', 'verified', 'role:admin'])->name('dashboard');
+})->middleware(['auth', 'verified', 'role:admin'])->name('admin.dashboard');
 
 Route::get('/dashboard', function() {
     return view('dashboard');
-})->middleware(['role:skater']);
+})->middleware(['role:skater|admin'])->name('dashboard');
 
 Route::group(['controller' => SkaterController::class, 'middleware' => 'auth'], function () {
     Route::get('/skaters', 'index')->name('skater.index');
@@ -49,9 +49,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-
-
 
 Route::group(['controller' => AdminUserController::class, 'middleware' => 'role:admin', 'prefix' => '/admin', 'as' => 'admin.', 'name' => 'admin'], function () {
     Route::get('/users', 'index')->name('users');
