@@ -52,4 +52,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(SkateSpot::class);
     }
+
+    public function message()
+    {
+        return $this->hasMany(Message::class);
+    }
+
 }

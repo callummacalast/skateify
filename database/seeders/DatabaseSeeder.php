@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SkateSpotSeeder::class);
         $this->call(SkateSpotMediaSeeder::class);
         $this->call(ContactMessageSeeder::class);
+        $this->call(MessageSeeder::class);
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
