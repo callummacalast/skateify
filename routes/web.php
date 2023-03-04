@@ -62,6 +62,11 @@ Route::group(['controller' => AdminSkateSpotController::class, 'middleware' => '
     Route::post('/skate-spots/store', 'store')->name('skate-spots.store');
 });
 
+Route::group(['controller' => AdminContactMessageController::class, 'middleware' => 'role:admin', 'prefix' => '/admin', 'as' => 'admin.', 'name' => 'admin'], function() {
+    Route::get('/contact-messages', 'index')->name('contact-messages');
+    Route::get('/contact-messages/{contactMessage}', 'show')->name('contact-messages.show');
+});
+
 Route::group(['controller' => ContactMessageController::class, 'middleware' => 'role:admin', 'name' => 'contact'], function () {
     Route::get('/contact', 'index')->name('contacts');
     Route::post('/contact/store', 'store')->name('contact.send');
